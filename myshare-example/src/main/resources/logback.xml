@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<jmxConfigurator />
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender" level="INFO">
+		<!-- 典型的日志pattern -->
+		<encoder>
+			<pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%method（） - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="SSMDemo"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender" level="INFO">
+		<file>logs/SSMDemo.log</file>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logs/SSMDemo.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+
+	<!-- 这些日志不要打印debug，不然数量太多 -->
+	<logger name="org.springframework" level="WARN" />
+	<logger name="org.spring" level="WARN" />
+	<logger name="org.hibernate" level="WARN" />
+	<logger name="io.netty" level="WARN" />
+	<logger name="org.eclipse.jetty" level="WARN" />
+	<logger name="jndi" level="WARN" />
+	<logger name="redis.clients" level="WARN" />
+	<logger name="application" level="WARN" />
+
+	<!-- root -->
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<appender-ref ref="SSMDemo"/>
+	</root>
+
+</configuration>
